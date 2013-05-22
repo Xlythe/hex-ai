@@ -7,15 +7,15 @@ import java.util.Random;
 
 import com.hex.core.Game;
 import com.hex.core.GameAction;
+import com.hex.core.GamePiece;
 import com.hex.core.Point;
-import com.hex.core.RegularPolygonGameObject;
 
 /**
  * @author Will Harmon
  **/
 public class GameAI extends AI {
     private static final long serialVersionUID = 1L;
-    private RegularPolygonGameObject[][] gameBoard;
+    private GamePiece[][] gameBoard;
     // n is the leftmost AI move, m is the rightmost AI move
     private int[] n = { 0, 0 }, m = { 0, 0 };
     // ArrayList of pair-pieces
@@ -430,7 +430,7 @@ public class GameAI extends AI {
     }
 
     private void sendMove(Game game, int x, int y) {
-        if(!getSkipMove()) GameAction.makeMove(this, (byte) team, new Point(x, y), game);
+        if(!getSkipMove()) GameAction.makeMove(this, new Point(x, y), game);
     }
 
     @Override
@@ -438,9 +438,6 @@ public class GameAI extends AI {
 
     @Override
     public void lose() {}
-
-    @Override
-    public void setMove(Game game, Object o, Point hex) {}
 
     @Override
     public Serializable getSaveState() {

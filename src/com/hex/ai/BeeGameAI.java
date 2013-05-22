@@ -92,7 +92,7 @@ public class BeeGameAI extends AI {
         // it makes it in the centre of the board.
         if(lastMove == null) {
             pieces[pieces.length / 2][pieces.length / 2] = team;
-            if(!getSkipMove()) GameAction.makeMove(this, team, new Point(pieces.length / 2 - 1, pieces.length / 2 - 1), game);
+            if(!getSkipMove()) GameAction.makeMove(this, new Point(pieces.length / 2 - 1, pieces.length / 2 - 1), game);
         }
         // If a move has been made already,
         // Bee records the move in the pieces array
@@ -104,7 +104,7 @@ public class BeeGameAI extends AI {
             int x = bestMove.x - 1;
             int y = bestMove.y - 1;
 
-            if(!getSkipMove()) GameAction.makeMove(this, team, new Point(y, gridSize - 1 - x), game);
+            if(!getSkipMove()) GameAction.makeMove(this, new Point(y, gridSize - 1 - x), game);
         }
     }
 
@@ -628,9 +628,6 @@ public class BeeGameAI extends AI {
 
     @Override
     public void lose() {}
-
-    @Override
-    public void setMove(Game game, Object o, Point hex) {}
 
     @Override
     public Serializable getSaveState() {
