@@ -58,7 +58,7 @@ public class GameAI extends AI {
     @Override
     public void getPlayerTurn(Game game) {
         super.getPlayerTurn(game);
-        this.gameBoard = game.gamePiece;
+        this.gameBoard = game.gamePieces;
         AIHistoryObject state = new AIHistoryObject(pairs, n, m);
         history.add(state);
         makeMove(game);
