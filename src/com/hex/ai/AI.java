@@ -1,6 +1,7 @@
 package com.hex.ai;
 
 import com.hex.core.Game;
+import com.hex.core.Player;
 import com.hex.core.PlayerObject;
 import com.hex.core.PlayingEntity;
 
@@ -108,4 +109,11 @@ public abstract class AI implements PlayingEntity {
     public byte getTeam() {
         return (byte) team;
     }
+
+    @Override
+    public Player getType() {
+        return Player.AI;
+    }
+
+    public abstract int getAIType();
 }

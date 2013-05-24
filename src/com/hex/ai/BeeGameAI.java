@@ -646,7 +646,7 @@ public class BeeGameAI extends AI {
     }
 
     @Override
-    public int getType() {
+    public int getAIType() {
         return 4;
     }
 }
