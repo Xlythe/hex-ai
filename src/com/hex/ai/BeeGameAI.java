@@ -19,16 +19,17 @@ import com.hex.core.Point;
  * @version June 2006
  */
 public class BeeGameAI extends AI {
-    private static final long serialVersionUID = 1L;
+    private final static long serialVersionUID = 1L;
     private final static int RED = 1, BLUE = 2;
-    private final int MAX_DEPTH = 2, BEAM_SIZE = 5;
-    private int[][] pieces;
-    private HashMap<Integer, Integer> lookUpTable;
+    private final static int MAX_DEPTH = 2, BEAM_SIZE = 5;
 
     // List of the AI's state. Used when Undo is called.
     private final LinkedList<AIHistoryObject> history = new LinkedList<AIHistoryObject>();
     private final int gridSize;
-    private EvaluationNode[][] nodesArray;
+
+    private transient EvaluationNode[][] nodesArray;
+    private transient int[][] pieces;
+    private transient HashMap<Integer, Integer> lookUpTable;
 
     /**
      * Constructor for the Bee object
