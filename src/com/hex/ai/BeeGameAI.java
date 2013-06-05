@@ -83,7 +83,7 @@ public class BeeGameAI extends AI {
 
         Point lastMove;
         try {
-            if(moveNumber > 1) lastMove = new Point(gridSize - 1 - game.getMoveList().getmove().getY(), game.getMoveList().getmove().getX());
+            if(moveNumber > 1) lastMove = new Point(gridSize - 1 - game.getMoveList().getMove().getY(), game.getMoveList().getMove().getX());
             else lastMove = null;
         }
         catch(Exception e) {
