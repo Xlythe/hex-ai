@@ -73,6 +73,12 @@ public abstract class AI implements PlayingEntity {
     }
 
     @Override
+    public void win() {}
+
+    @Override
+    public void lose(Game game) {}
+
+    @Override
     public void setColor(int color) {
         this.color = color;
     }

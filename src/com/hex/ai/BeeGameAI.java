@@ -625,12 +625,6 @@ public class BeeGameAI extends AI {
     }
 
     @Override
-    public void win() {}
-
-    @Override
-    public void lose() {}
-
-    @Override
     public Serializable getSaveState() {
         return history;
     }
