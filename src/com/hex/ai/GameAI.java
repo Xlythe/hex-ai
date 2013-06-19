@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
+import com.hex.core.AI;
 import com.hex.core.Game;
 import com.hex.core.GameAction;
 import com.hex.core.GamePiece;
@@ -450,7 +451,18 @@ public class GameAI extends AI {
     }
 
     @Override
-    public int getAIType() {
-        return 1;
+    public String getAIType() {
+        return "Will";
     }
+
+    @Override
+    public String getName() {
+        return "Will";
+    }
+
+    @Override
+    public void win() {}
+
+    @Override
+    public void lose(Game game) {}
 }

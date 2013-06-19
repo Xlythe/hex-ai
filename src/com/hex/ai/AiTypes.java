@@ -1,5 +1,7 @@
 package com.hex.ai;
 
+import com.hex.core.AI;
+
 public enum AiTypes {
     GameAI, BeeAI;
 

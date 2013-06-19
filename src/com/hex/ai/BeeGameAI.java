@@ -3,11 +3,13 @@ package com.hex.ai;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.hex.core.AI;
 import com.hex.core.Game;
 import com.hex.core.GameAction;
 import com.hex.core.Point;
@@ -78,7 +80,13 @@ public class BeeGameAI extends AI {
     public void getPlayerTurn(Game game) {
         super.getPlayerTurn(game);
         AIHistoryObject state = new AIHistoryObject(pieces, lookUpTable);
-        history.add(state);
+        try {
+            history.add(state);
+        }
+        catch(ConcurrentModificationException e) {
+            e.printStackTrace();
+            return;
+        }
         int moveNumber = game.getMoveNumber();
 
         Point lastMove;
@@ -641,8 +649,25 @@ public class BeeGameAI extends AI {
     }
 
     @Override
-    public int getAIType() {
-        return 4;
+    public String getAIType() {
+        return "Bee";
+    }
+
+    @Override
+    public String getName() {
+        return "Bee";
+    }
+
+    @Override
+    public void win() {}
+
+    @Override
+    public void lose(Game game) {}
+
+    @Override
+    public void startGame() {
+        // TODO Auto-generated method stub
+
     }
 }
 
