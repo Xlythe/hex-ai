@@ -18,6 +18,11 @@ public abstract class AI implements PlayingEntity {
     }
 
     @Override
+    public void startGame() {
+
+    }
+
+    @Override
     public void getPlayerTurn(Game game) {
         setSkipMove(false);
     }
