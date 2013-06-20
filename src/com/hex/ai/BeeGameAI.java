@@ -665,9 +665,19 @@ public class BeeGameAI extends AI {
     public void lose(Game game) {}
 
     @Override
-    public void startGame() {
-        // TODO Auto-generated method stub
+    public void startGame() {}
 
+    @Override
+    public void newgameCalled() {
+        super.newgameCalled();
+        pieces = new int[gridSize + 2][gridSize + 2];
+        for(int i = 1; i < pieces.length - 1; i++) {
+            pieces[i][0] = RED;
+            pieces[0][i] = BLUE;
+            pieces[i][pieces.length - 1] = RED;
+            pieces[pieces.length - 1][i] = BLUE;
+        }
+        lookUpTable = new HashMap<Integer, Integer>();
     }
 }
 
