@@ -23,11 +23,10 @@ import com.hex.core.Point;
 public class BeeGameAI extends AI {
     private final static long serialVersionUID = 1L;
     private final static int RED = 1, BLUE = 2;
-    private final static int MAX_DEPTH = 2, BEAM_SIZE = 5;
 
     // List of the AI's state. Used when Undo is called.
     private final LinkedList<AIHistoryObject> history = new LinkedList<AIHistoryObject>();
-    private final int gridSize;
+    private final int gridSize, maxDepth, beamSize;
 
     private transient EvaluationNode[][] nodesArray;
     private transient int[][] pieces;
@@ -43,9 +42,11 @@ public class BeeGameAI extends AI {
      * @param colour
      *            the colour of Bee
      */
-    public BeeGameAI(int team, int gridSize) {
+    public BeeGameAI(int team, int gridSize, int depth, int beamSize) {
         super(team);
         // Creates the pieces array that stores the board inside Bee
+        this.maxDepth = depth;
+        this.beamSize = beamSize;
         this.gridSize = gridSize;
         pieces = new int[gridSize + 2][gridSize + 2];
         for(int i = 1; i < pieces.length - 1; i++) {
@@ -139,7 +140,7 @@ public class BeeGameAI extends AI {
         int bestValue = team == RED ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         int bestRow = -1;
         int bestColumn = -1;
-
+        int[][] tempValueArray = new int[pieces.length][pieces.length];
         // Tries every single move possible and evaluates how good it is.
         for(int i = 1; i < pieces.length - 1; i++) {
             for(int j = 1; j < pieces.length - 1; j++) {
@@ -150,6 +151,7 @@ public class BeeGameAI extends AI {
                 pieces[i][j] = team;
                 int value = expand(1, bestValue, team == RED ? BLUE : RED, nodesArray);
                 pieces[i][j] = 0;
+                tempValueArray[j][pieces.length - 1 - i] = value;
 
                 // Compares the last move to the best move so far
                 // and records the move if it is better.
@@ -164,6 +166,14 @@ public class BeeGameAI extends AI {
                     bestColumn = j;
                 }
             }
+        }
+
+        System.out.println("Move: " + bestColumn + "," + (pieces.length - 1 - bestRow));
+        for(int i = 0; i < pieces.length; i++) {
+            for(int j = 0; j < pieces.length; j++) {
+                System.out.print(tempValueArray[i][j] + ",");
+            }
+            System.out.println();
         }
         return new Point(bestRow, bestColumn);
     }
@@ -185,14 +195,14 @@ public class BeeGameAI extends AI {
 
         // If depth is maximum depth, evaluates the branch using
         // a board evaluation instead of expanding it.
-        if(depth == MAX_DEPTH) return evaluate();
+        if(depth == maxDepth) return evaluate();
         int bestValue = currentColour == RED ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 
         // Gets all the moves possible to make.
         Iterator<Move> iter = getMoves().iterator();
 
         // Considers only the several best moves that are possible to make.
-        for(int i = 0; i < BEAM_SIZE && iter.hasNext(); i++) {
+        for(int i = 0; i < beamSize && iter.hasNext(); i++) {
             // Gets the move value of the next move.
             Move nextMove = iter.next();
             pieces[nextMove.row][nextMove.column] = currentColour;
