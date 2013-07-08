@@ -11,7 +11,7 @@ public enum AiTypes {
             return new GameAI(playerPos);
         case BeeAI:
             int depth = difficulty;
-            int beamSize = depth * 5 / 2;
+            int beamSize = 7 - difficulty;
             return new BeeGameAI(playerPos, gridSize, depth, beamSize);
         }
         return null;

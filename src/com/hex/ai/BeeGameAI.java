@@ -21,6 +21,7 @@ import com.hex.core.Point;
  * @version June 2006
  */
 public class BeeGameAI extends AI {
+    private final static boolean DEBUG = false;
     private final static long serialVersionUID = 1L;
     private final static int RED = 1, BLUE = 2;
 
@@ -168,12 +169,14 @@ public class BeeGameAI extends AI {
             }
         }
 
-        System.out.println("Move: " + bestColumn + "," + (pieces.length - 1 - bestRow));
-        for(int i = 0; i < pieces.length; i++) {
-            for(int j = 0; j < pieces.length; j++) {
-                System.out.print(tempValueArray[i][j] + ",");
+        if(DEBUG) {
+            System.out.println("Move: " + bestColumn + "," + (pieces.length - 1 - bestRow));
+            for(int i = 0; i < pieces.length; i++) {
+                for(int j = 0; j < pieces.length; j++) {
+                    System.out.print(tempValueArray[i][j] + ",");
+                }
+                System.out.println();
             }
-            System.out.println();
         }
         return new Point(bestRow, bestColumn);
     }
