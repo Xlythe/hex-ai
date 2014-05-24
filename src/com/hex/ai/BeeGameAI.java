@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.hex.core.AI;
 import com.hex.core.Game;
@@ -629,8 +630,7 @@ public class BeeGameAI extends AI {
     }
 
     /**
-     * Creates a BigInteger representation of the current board to use in the
-     * look-up table
+     * Creates a BigInteger representation of the current board to use in the look-up table
      * 
      * @return the BigInteger representation
      */
@@ -653,7 +653,7 @@ public class BeeGameAI extends AI {
     @SuppressWarnings("unchecked")
     @Override
     public void setSaveState(Serializable state) {
-        LinkedList<AIHistoryObject> history = (LinkedList<AIHistoryObject>) state;
+        List<AIHistoryObject> history = (List<AIHistoryObject>) state;
         this.history.clear();
         for(AIHistoryObject ho : history) {
             this.history.add(ho);
@@ -735,8 +735,7 @@ class Move implements Comparable<Move> {
 }
 
 /**
- * The "EvaluationNode" class. Purpose: Stores the neighbours of each piece on
- * the Hex board
+ * The "EvaluationNode" class. Purpose: Stores the neighbours of each piece on the Hex board
  * 
  * @author Konstantin Lopyrev
  * @version June 2006
@@ -792,8 +791,7 @@ class EvaluationNode implements Serializable {
      * @param colour
      *            the current colour
      * @param piecesVisited
-     *            stores the pieces that have been visited already so that they
-     *            are not touched again
+     *            stores the pieces that have been visited already so that they are not touched again
      * @return the neighbours of the piece in a HashSet
      */
     private HashSet<EvaluationNode> getNeighbours(int colour, HashSet<EvaluationNode> piecesVisited, EvaluationNode[][] nodesArray, int[][] pieces) {

@@ -2,7 +2,7 @@ package com.hex.ai;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import com.hex.core.AI;
@@ -165,8 +165,7 @@ public class GameAI extends AI {
             // Check if one of our pairs is being attacked, and fill in the
             // alternate if so
             for(int i = 0; i < pairs.size(); i++) {
-                if(gameBoard[pairs.get(i).get(0).get(x)][pairs.get(i).get(0).get(y)].getTeam() == 0
-                        || gameBoard[pairs.get(i).get(1).get(x)][pairs.get(i).get(1).get(y)].getTeam() == 0) {
+                if(gameBoard[pairs.get(i).get(0).get(x)][pairs.get(i).get(0).get(y)].getTeam() == 0 || gameBoard[pairs.get(i).get(1).get(x)][pairs.get(i).get(1).get(y)].getTeam() == 0) {
                     if(gameBoard[pairs.get(i).get(0).get(x)][pairs.get(i).get(0).get(y)].getTeam() != 0) {
                         sendMove(game, pairs.get(i).get(1).get(x), pairs.get(i).get(1).get(y));
                         pairs.remove(i);
@@ -200,9 +199,7 @@ public class GameAI extends AI {
                     return;
                 }
             }
-            if(right()
-                    && (gameBoard[m[x] - 1 * x + 1 * y][m[y] - 1 * y + 1 * x].getTeam() != 0 || gameBoard[m[x] + 1 * x + 0 * y][m[y] + 1 * y + 0 * x].getTeam() != 0)
-                    && gameBoard[m[x] + 0 * x + 1 * y][m[y] + 0 * y + 1 * x].getTeam() == 0) {
+            if(right() && (gameBoard[m[x] - 1 * x + 1 * y][m[y] - 1 * y + 1 * x].getTeam() != 0 || gameBoard[m[x] + 1 * x + 0 * y][m[y] + 1 * y + 0 * x].getTeam() != 0) && gameBoard[m[x] + 0 * x + 1 * y][m[y] + 0 * y + 1 * x].getTeam() == 0) {
                 m[0] = m[0] + 1;
                 m[1] = m[1];
 
@@ -226,9 +223,7 @@ public class GameAI extends AI {
                     return;
                 }
             }
-            if(left()
-                    && (gameBoard[n[x] + 1 * x - 1 * y][n[y] + 1 * y - 1 * x].getTeam() != 0 || gameBoard[n[x] - 1 * x + 0 * y][n[y] - 1 * y + 0 * x].getTeam() != 0)
-                    && gameBoard[n[x] + 0 * x - 1 * y][n[y] + 0 * y - 1 * x].getTeam() == 0) {
+            if(left() && (gameBoard[n[x] + 1 * x - 1 * y][n[y] + 1 * y - 1 * x].getTeam() != 0 || gameBoard[n[x] - 1 * x + 0 * y][n[y] - 1 * y + 0 * x].getTeam() != 0) && gameBoard[n[x] + 0 * x - 1 * y][n[y] + 0 * y - 1 * x].getTeam() == 0) {
                 n[0] = n[0] - 1;
                 n[1] = n[1];
 
@@ -256,8 +251,7 @@ public class GameAI extends AI {
                     sendMove(game, n[x], n[y]);
                     return;
                 }
-                else if(gameBoard[n[x] + 1 * x - 2 * y][n[y] + 1 * y - 2 * x].getTeam() != 0
-                        && gameBoard[n[x] - 1 * x - 1 * y][n[y] - 1 * y - 1 * x].getTeam() == 0) {
+                else if(gameBoard[n[x] + 1 * x - 2 * y][n[y] + 1 * y - 2 * x].getTeam() != 0 && gameBoard[n[x] - 1 * x - 1 * y][n[y] - 1 * y - 1 * x].getTeam() == 0) {
                     ArrayList<ArrayList<Integer>> pair = new ArrayList<ArrayList<Integer>>();
                     ArrayList<Integer> cord1 = new ArrayList<Integer>();
                     ArrayList<Integer> cord2 = new ArrayList<Integer>();
@@ -297,8 +291,7 @@ public class GameAI extends AI {
                     sendMove(game, m[x], m[y]);
                     return;
                 }
-                else if(gameBoard[m[x] + 1 * x + 1 * y][m[y] + 1 * y + 1 * x].getTeam() != 0
-                        && gameBoard[m[x] - 1 * x + 2 * y][m[y] - 1 * y + 2 * x].getTeam() == 0) {
+                else if(gameBoard[m[x] + 1 * x + 1 * y][m[y] + 1 * y + 1 * x].getTeam() != 0 && gameBoard[m[x] - 1 * x + 2 * y][m[y] - 1 * y + 2 * x].getTeam() == 0) {
                     ArrayList<ArrayList<Integer>> pair = new ArrayList<ArrayList<Integer>>();
                     ArrayList<Integer> cord1 = new ArrayList<Integer>();
                     ArrayList<Integer> cord2 = new ArrayList<Integer>();
@@ -442,7 +435,7 @@ public class GameAI extends AI {
     @SuppressWarnings("unchecked")
     @Override
     public void setSaveState(Serializable state) {
-        LinkedList<AIHistoryObject> history = (LinkedList<AIHistoryObject>) state;
+        List<AIHistoryObject> history = (List<AIHistoryObject>) state;
         this.history.clear();
         for(AIHistoryObject ho : history) {
             this.history.add(ho);
