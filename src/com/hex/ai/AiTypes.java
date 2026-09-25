@@ -3,7 +3,7 @@ package com.hex.ai;
 import com.hex.core.AI;
 
 public enum AiTypes {
-    GameAI, BeeAI;
+    GameAI, BeeAI, TreeAI;
 
     public static AI newAI(AiTypes type, int playerPos, int gridSize, int difficulty) {
         switch(type) {
@@ -13,6 +13,8 @@ public enum AiTypes {
             int depth = difficulty;
             int beamSize = 7 - difficulty;
             return new BeeGameAI(playerPos, gridSize, depth, beamSize);
+        case TreeAI:
+            return new TreeGameAI(playerPos, difficulty);
         }
         return null;
     }
