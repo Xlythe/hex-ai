@@ -32,7 +32,7 @@ public class BeeGameAI extends AI {
 
     private transient EvaluationNode[][] nodesArray;
     private transient int[][] pieces;
-    private transient HashMap<Integer, Integer> lookUpTable;
+    private transient HashMap<String, Integer> lookUpTable;
 
     /**
      * Constructor for the Bee object
@@ -57,15 +57,15 @@ public class BeeGameAI extends AI {
             pieces[i][pieces.length - 1] = RED;
             pieces[pieces.length - 1][i] = BLUE;
         }
-        lookUpTable = new HashMap<Integer, Integer>();
+        lookUpTable = new HashMap<String, Integer>();
     }
 
     public class AIHistoryObject implements Serializable {
         private static final long serialVersionUID = 1L;
         int[][] pieces;
-        HashMap<Integer, Integer> lookUpTable;
+        HashMap<String, Integer> lookUpTable;
 
-        public AIHistoryObject(int[][] pieces, HashMap<Integer, Integer> lookUpTable) {
+        public AIHistoryObject(int[][] pieces, HashMap<String, Integer> lookUpTable) {
             this.pieces = new int[pieces.length][pieces.length];
             for(int i = 0; i < pieces.length; i++) {
                 for(int j = 0; j < pieces.length; j++) {
@@ -420,7 +420,7 @@ public class BeeGameAI extends AI {
     private int evaluate() {
         // Checks if the board has been
         // evaluated before and if it has, returns the previous value.
-        Integer piecesString = piecesString();
+        String piecesString = piecesString();
         Integer piecesValue = lookUpTable.get(piecesString);
         if(piecesValue != null) return piecesValue.intValue();
 
@@ -630,19 +630,19 @@ public class BeeGameAI extends AI {
     }
 
     /**
-     * Creates a BigInteger representation of the current board to use in the look-up table
+     * Creates a collision-free representation of the current board for the cache.
      * 
-     * @return the BigInteger representation
+     * @return the board state
      */
-    private Integer piecesString() {
-        Integer value = pieces.length - 2;
+    private String piecesString() {
+        StringBuilder value = new StringBuilder(gridSize * gridSize + 4);
+        value.append(gridSize).append(':');
         for(int i = 1; i < pieces.length - 1; i++) {
             for(int j = 1; j < pieces.length - 1; j++) {
-                value *= 3;
-                value += pieces[i][j];
+                value.append((char) ('0' + pieces[i][j]));
             }
         }
-        return value;
+        return value.toString();
     }
 
     @Override
@@ -690,7 +690,7 @@ public class BeeGameAI extends AI {
             pieces[i][pieces.length - 1] = RED;
             pieces[pieces.length - 1][i] = BLUE;
         }
-        lookUpTable = new HashMap<Integer, Integer>();
+        lookUpTable = new HashMap<String, Integer>();
     }
 }
 
